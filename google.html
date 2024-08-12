@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Pay Payment Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("https://th.bing.com/th/id/R.b2547341320bf9951f8786783988ae6e?rik=YtuQRiW8%2f%2fhrvQ&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fQBlBIss.jpg&ehk=6I12k5k2zGZdBRqSNoS0GN%2fye99Pi0sgV9p9jbCG4vQ%3d&risl=&pid=ImgRaw&r=0");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #ff5500 transparent;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .payment-options {
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #1558b0;
+            transform: scale(1.05);
+        }
+
+        .qr-code {
+            margin-top: 20px;
+        }
+
+        .subline-text {
+            font-size: 14px;
+            color: #000;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Google Pay Payment Form</h1>
+        <form id="payment-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount (INR)</label>
+                <input type="number" id="amount" name="amount" required>
+            </div>
+            <button type="button" class="btn" id="generate-qr-btn">Generate QR Code</button>
+            <div class="qr-code" id="qr-code"></div>
+            <p class="subline-text">* Payment functionality is simulated.</p>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script>
+        document.getElementById('generate-qr-btn').addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const amount = document.getElementById('amount').value;
+
+            if (name && email && amount) {
+                // Simulated Google Pay QR code URL
+                const paymentUrl = `https://example.com/pay?amount=${amount}&name=${name}`;
+                const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(paymentUrl)}`;
+
+                // Generate QR code image
+                $('#qr-code').html('<img src="' + qrCodeUrl + '" alt="QR Code">');
+
+                // Simulate sending an email
+                const mailtoLink = `mailto:${email}?subject=Payment Successful&body=Hello ${name},%0D%0A%0D%0AYour payment of INR ${amount} is successful.%0D%0A%0D%0AThank you!`;
+                
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+</body>
+</html>
