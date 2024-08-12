@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Change Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("https://i.pinimg.com/originals/d0/d5/93/d0d593eeddaae41d7cd37b0b8c3c6be2.jpg");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: transparent;
+            border-radius: 10px;
+            border-color: #e6e6e6;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-header h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 15px;
+            background-color: #cc00cc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+
+        .form-group .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-footer a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Change Password</h1>
+        </div>
+        <form id="password-change-form">
+            <div class="form-group">
+                <label for="current-password">Current Password</label>
+                <input type="password" id="current-password" name="current-password" required>
+                <div id="current-password-error" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" name="new-password" required>
+                <div id="new-password-error" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm New Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <div id="confirm-password-error" class="error"></div>
+            </div>
+            <div class="form-group">
+                <button type="submit">Change Password</button>
+            </div>
+        </form>
+        <div class="form-footer">
+            <a href="#" id="forgot-password-link">Forgot Password?</a>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
+        <div style="background: #fff; border-radius: 10px; padding: 20px; max-width: 400px; width: 100%;">
+            <h2>Reset Password</h2>
+            <p>Select a method to receive the reset code:</p>
+            <div class="form-group">
+                <label for="reset-email">Email</label>
+                <input type="email" id="reset-email" placeholder="Enter your email">
+                <div id="reset-email-error" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="reset-phone">Phone Number</label>
+                <input type="tel" id="reset-phone" placeholder="Enter your phone number">
+                <div id="reset-phone-error" class="error"></div>
+            </div>
+            <div class="form-group">
+                <button id="send-reset-code">Send Reset Code</button>
+            </div>
+            <div class="form-footer">
+                <a href="#" id="close-modal">Cancel</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('forgot-password-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('forgot-password-modal').style.display = 'flex';
+        });
+
+        document.getElementById('close-modal').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('forgot-password-modal').style.display = 'none';
+        });
+
+        document.getElementById('password-change-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Reset previous errors
+            document.getElementById('current-password-error').textContent = '';
+            document.getElementById('new-password-error').textContent = '';
+            document.getElementById('confirm-password-error').textContent = '';
+
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            let valid = true;
+
+            // Password validation
+            if (newPassword.length < 8) {
+                document.getElementById('new-password-error').textContent = 'Password must be at least 8 characters long.';
+                valid = false;
+            }
+
+            if (newPassword !== confirmPassword) {
+                document.getElementById('confirm-password-error').textContent = 'New password and confirm password do not match.';
+                valid = false;
+            }
+
+            if (valid) {
+                // Handle password change logic here
+                alert('Password changed successfully!');
+                // Optionally reset the form
+                document.getElementById('password-change-form').reset();
+            }
+        });
+
+        document.getElementById('send-reset-code').addEventListener('click', function() {
+            // Reset previous errors
+            document.getElementById('reset-email-error').textContent = '';
+            document.getElementById('reset-phone-error').textContent = '';
+
+            const email = document.getElementById('reset-email').value;
+            const phone = document.getElementById('reset-phone').value;
+
+            let valid = false;
+
+            // Reset form validation
+            if (email) {
+                valid = true;
+            } else if (phone) {
+                valid = true;
+            } 
+
+            if (!valid) {
+                document.getElementById('reset-email-error').textContent = 'Please enter email or phone number.';
+            } else {
+                // Handle sending reset code logic here
+                alert('Reset code sent!');
+                document.getElementById('forgot-password-modal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
