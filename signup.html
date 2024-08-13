@@ -91,7 +91,7 @@
 <body>
     <div class="container show">
         <h2>Sign Up</h2>
-        <form id="signupForm">
+        <form action="login.html" method="post" id="signupForm">
             <input type="text" name="username" placeholder="Username" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
@@ -105,133 +105,6 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelector('.container').classList.add('show');
-        });
-
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-            // You can add form validation here if needed
-
-            // Redirect to login page
-            window.location.href = '<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: url('https://th.bing.com/th/id/OIP.GaU4jocqwe8B0tU8_pEllQHaEk?w=3231&h=1997&rs=1&pid=ImgDetMain') no-repeat center center fixed;
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .container {
-            max-width: 450px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            padding: 20px;
-            position: relative;
-            transform: scale(0.9);
-            opacity: 0;
-            transition: transform 0.5s, opacity 0.5s;
-        }
-        .container.show {
-            transform: scale(1);
-            opacity: 1;
-        }
-        h2 {
-            margin: 0;
-            text-align: center;
-            color: #333;
-            font-size: 1.5em;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 1em;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: #ff7e5f;
-            box-shadow: 0 0 8px rgba(255, 126, 95, 0.5);
-            outline: none;
-        }
-        input[type="submit"] {
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: #ff7e5f;
-            color: #fff;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-        }
-        input[type="submit"]:hover {
-            background: #feb47b;
-            transform: translateY(-2px);
-        }
-        .link {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .link a {
-            color: #ff7e5f;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .link a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="container show">
-        <h2>Sign Up</h2>
-        <form id="signupForm">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-            <input type="submit" value="Sign Up">
-        </form>
-        <div class="link">
-            <a href="login.html">Back to Login</a>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelector('.container').classList.add('show');
-        });
-
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-            // You can add form validation here if needed
-
-            // Redirect to login page
-            window.location.href = 'login.html';
-        });
-    </script>
-</body>
-</html>
-';
         });
     </script>
 </body>
